@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Palpites da Rodada</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: auto; }
+        .jogo { border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; }
+        .jogo h3 { margin: 0 0 5px 0; }
+        .times { display: flex; justify-content: space-between; margin: 5px 0; }
+        .palpites { display: flex; justify-content: space-between; }
+        .palpites input { width: 45%; }
+    </style>
+</head>
+<body>
+    <h1>Envie seus palpites</h1>
+    <form action="/palpite" method="post">
+        {% for jogo in jogos %}
+        <div class="jogo">
+            <h3>Jogo {{ loop.index }} – {{ jogo[3][:10] }}</h3>
+            <div class="times">
+                <span>{{ jogo[1] }}</span>
+                <strong>x</strong>
+                <span>{{ jogo[2] }}</span>
+            </div>
+            <div class="palpites">
+                <input type="number" name="palpite_{{ jogo[0] }}_casa" placeholder="{{ jogo[1] }}" min="0" required>
+                <input type="number" name="palpite_{{ jogo[0] }}_fora" placeholder="{{ jogo[2] }}" min="0" required>
+            </div>
+        </div>
+        {% endfor %}
+
+        <label for="usuario">Usuário:</label><br>
+        <select name="usuario" required>
+            <option value="">-- Selecione --</option>
+            {% for user in usuarios %}
+            <option value="{{ user[0] }}">{{ user[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="senha">Senha:</label><br>
+        <input type="password" name="senha" required><br><br>
+
+        <button type="submit">Salvar Palpites</button>
+    </form>
+</body>
+</html>
