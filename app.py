@@ -10,13 +10,13 @@ app = Flask(__name__)
 
 def conectar_db():
     return psycopg2.connect(
-          host="aws-0-sa-east-1.pooler.supabase.com",
-          port="5432",
-          database="postgres",
-          user="postgres.htsaeztsdrbuoqwghovg",
-          password="Burebas@36"
-      )
-
+        host=os.getenv("DB_HOST"),
+        database=os.getenv("DB_NAME"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        port=os.getenv("DB_PORT")
+    )
+    
 @app.route('/')
 def home():
     conn = conectar_db()
