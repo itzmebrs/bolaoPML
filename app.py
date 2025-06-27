@@ -16,7 +16,7 @@ def conectar_db():
         password=os.getenv("DB_PASSWORD"),
         port=os.getenv("DB_PORT")
     )
-    
+
 @app.route('/')
 def home():
     conn = conectar_db()
@@ -60,7 +60,7 @@ def registrar_palpites():
             cur.execute("""
                 INSERT INTO palpites (id_usuario, id_jogo, palpite_1, palpite_2)
                 VALUES (%s, %s, %s)
-            """, (usuario_id, jogo_id, palpite_casa, palpite_fora)
+            """, (usuario_id, jogo_id, palpite_casa, palpite_fora))
 
     conn.commit()
     cur.close()
